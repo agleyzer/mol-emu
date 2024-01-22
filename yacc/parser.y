@@ -18,7 +18,7 @@ void yyerror(const char *format, ...) {
 }
  
 int yywrap() {
-        return 1;
+    return 1;
 } 
 
 int yylex();

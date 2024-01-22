@@ -1,14 +1,21 @@
-YFLAGS  = -dy
+YFLAGS = -dy
+TEST_OUTPUT = /tmp/test_output.txt
+BINARIES = dropword mol
 
-all: dropword mol
+all: $(BINARIES)
 
 dropword: dropword.cc
-	g++ dropword.cc -o dropword
+	g++ $^ -o $@
 
 mol: lexer.o parser.o 
-	cc lexer.o parser.o -o mol
+	cc $^ -o $@
 
 lexer.o: parser.o
 
+# run mol and compare against known output
+test: mol
+	./mol < test_input.txt >$(TEST_OUTPUT)
+	diff test_output.txt $(TEST_OUTPUT)
+
 clean:
-	rm -f *.o y.tab.h mol dropword
+	rm -f *.o y.tab.h $(BINARIES) $(TEST_OUTPUT)

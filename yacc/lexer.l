@@ -8,6 +8,10 @@ void yyerror(const char *format, ...);
 %%
 proc|procedure	return PROCEDURE;
 
+endp\.		return ENDP;
+
+declare		return DECLARE;
+
 [0-9]{1,8}	{ // decimal number
                   yylval.number = atoi(yytext);
                   return NUMBER;
@@ -23,11 +27,7 @@ proc|procedure	return PROCEDURE;
                   return ID;
                 }
 
-\(		return LPAREN;
-
-\)		return RPAREN;
-
-\,		return COMMA;
+[\[\](),;]	{ return yytext[0]; }
 
 \n		yylineno++; /* ignore end of line */;
 

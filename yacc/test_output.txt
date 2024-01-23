@@ -1,3 +1,14 @@
-	parid: id
-	number: 12345
-	number: 5349
+	parid: foo
+	params: bar
+	PROCEDURE
+	parid: foo2
+	2 params: bar and baz
+	PROCEDURE
+	parid: foo3
+	3 params: bar, baz, and bang
+	PROCEDURE
+	parid: dec1
+	2 params: foo and bar
+	declare_item: x
+	declare_item y[10]
+	PROCEDURE

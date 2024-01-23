@@ -30,7 +30,7 @@ int main() {
 
 %}
 			
-%token PROCEDURE LPAREN RPAREN COMMA
+%token PROCEDURE ENDP DECLARE
 
 %union 
 {
@@ -46,23 +46,40 @@ int main() {
 /* start of temporary scaffolding */
 commands: /* empty */
         | commands command
+	| commands error ';' { yyerrok; } /* error recovery */
         ;
 
 command:
-        num
-        |
-        parid
+        procedure 
         ;
 /* end of temporary scaffolding */
 
-num:  	NUMBER	
-	{
-	    printf("\tnumber: %d\n", $1);
-	}		
-	;
-parid:	LPAREN ID RPAREN
-        {
-	    printf("\tparid: %s\n", $2);
-        }
+parid:	'(' ID ')' 
+        { printf("\tparid: %s\n", $2); }
         ;
-       
+
+params: '(' ID ')'
+	{ printf("\tparams: %s\n", $2); }
+	| '(' ID ',' ID ')'
+	{ printf("\t2 params: %s and %s\n", $2, $4); }
+	| '(' ID ',' ID ',' ID ')'      
+	{ printf("\t3 params: %s, %s, and %s\n", $2, $4, $6); }
+	;
+
+declare: /* empty */
+	| DECLARE declare_items ';'
+	;
+
+declare_items: declare_item 
+	| declare_items ',' declare_item
+	;
+
+declare_item: ID
+	{ printf("\tdeclare_item: %s\n", $1); }
+	| ID '[' NUMBER ']'
+	{ printf("\tdeclare_item %s[%d]\n", $1, $3); } 
+	;
+
+procedure: parid PROCEDURE params declare ENDP
+	{ printf("\tPROCEDURE\n"); }
+	;

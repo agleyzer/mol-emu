@@ -1,4 +1,8 @@
-(id)
-12345
-12345d
+(foo) procedure (bar) endp.
+
+(foo2) proc (bar, baz) endp.
+
+(foo3) proc (bar, baz, bang) endp.
+
+(dec1) proc (foo, bar) declare x, y[10]; endp.
 

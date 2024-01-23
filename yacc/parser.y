@@ -30,7 +30,7 @@ int main() {
 
 %}
 			
-%token LPAREN RPAREN
+%token PROCEDURE LPAREN RPAREN COMMA
 
 %union 
 {
@@ -55,15 +55,14 @@ command:
         ;
 /* end of temporary scaffolding */
 
-num:			
-	NUMBER	
+num:  	NUMBER	
 	{
 	    printf("\tnumber: %d\n", $1);
 	}		
 	;
-parid:
-	LPAREN ID RPAREN
+parid:	LPAREN ID RPAREN
         {
 	    printf("\tparid: %s\n", $2);
         }
         ;
+       
